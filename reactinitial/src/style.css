@@ -11,3 +11,7 @@ App {
   justify-content: space-around;
   align-items: center;
 }
+
+.client-card button {
+  margin-left: 10px;
+}

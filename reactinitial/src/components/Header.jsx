@@ -1,11 +1,14 @@
-import React from 'react';
-import {TextField} from "@mui/material";
+import {React, useState, useEffect} from 'react';
+import {TextField, Button} from "@mui/material";
 
 const Header = () => {
+  const [input, setInput] = useState("");
+
   return (
-    <div>
+    <div className="header">
       <h1>Veterinarian admin - clients</h1>
-      <TextField label="Search" variant="filled" color="info" size="small"/>
+      <TextField label="Search" variant="filled" color="info" size="small" value={input} onChange={(e) => setInput(e.target.value)}/>
+      <Button disabled={input.length >= 3 ? false : true} color="info" variant="contained" size="small">Search</Button>
     </div>
   )
 }

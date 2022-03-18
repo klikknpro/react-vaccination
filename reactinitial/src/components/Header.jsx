@@ -2,13 +2,12 @@ import {React, useState, useEffect} from 'react';
 import {TextField, Button} from "@mui/material";
 import http from "axios";
 
-const Header = ({setClients}) => {
-  const [input, setInput] = useState("");
+const Header = ({setClients, input, setInput}) => {
+  // const [input, setInput] = useState("");
 
   const search = async() => {
     setClients("Searching...");
     const response = await http.get(`https://demoapi.com/api/vet/clients?search=${input}`);
-    // console.log(response.data);
     setClients(response.data);
   }
 

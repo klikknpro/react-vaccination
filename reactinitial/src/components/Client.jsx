@@ -2,7 +2,7 @@ import {React, useState} from 'react';
 import http from "axios";
 import {Button} from "@mui/material";
 
-const Client = ({client}) => {
+const Client = ({client, setClients, input}) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const changeStatus = async(pet) => {
@@ -11,7 +11,9 @@ const Client = ({client}) => {
       {
         name: pet.name,
         isVaccinated: !(pet.isVaccinated)
-      });
+    });
+    const updatedResponse = await http.get(`https://demoapi.com/api/vet/clients?search=${input}`);
+    setClients([...updatedResponse.data]);
     setIsLoading(false);
   };
 
@@ -22,7 +24,7 @@ const Client = ({client}) => {
         <li key={i}>
           <p>Pet's name: {pet.name}</p>
           <p>Breed: {pet.animal}</p>
-          <p>{!isLoading ? pet.isVaccinated ? "Vaccinated" : "Not vaccinated" : "changing status..."}
+          <p>{!isLoading ? pet.isVaccinated ? "Vaccinated" : "Not vaccinated" : "Updating status..."}
             <Button onClick={() => changeStatus(pet)} color="info" variant="contained" size="small">Change status</Button>
           </p>
         </li>

@@ -1,33 +1,12 @@
-import {React, useState} from 'react';
-import http from "axios";
-import {Button} from "@mui/material";
+import React from 'react';
+import Pet from './Pet';
 
 const Client = ({client, setClients, input}) => {
-  const [isLoading, setIsLoading] = useState(false);
-
-  const changeStatus = async(pet) => {
-    setIsLoading(true);
-    const response = await http.post("https://demoapi.com/api/vet/pets/",
-      {
-        name: pet.name,
-        isVaccinated: !(pet.isVaccinated)
-    });
-    const updatedResponse = await http.get(`https://demoapi.com/api/vet/clients?search=${input}`);
-    setClients([...updatedResponse.data]);
-    setIsLoading(false);
-  };
-
   return (
     <div className="client-card">
       <h4>{client.name}</h4>
       <ul>{client.pets.map((pet, i) => (
-        <li key={i}>
-          <p>Pet's name: {pet.name}</p>
-          <p>Breed: {pet.animal}</p>
-          <p>{!isLoading ? pet.isVaccinated ? "Vaccinated" : "Not vaccinated" : "Updating status..."}
-            <Button onClick={() => changeStatus(pet)} color="info" variant="contained" size="small">Change status</Button>
-          </p>
-        </li>
+        <Pet pet={pet} key={i} input={input} setClients={setClients}/>
       ))}</ul>
     </div>
   )
